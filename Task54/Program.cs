@@ -4,13 +4,13 @@
 
 Random rand = new Random();
 int rows = 4; // rand.Next(2, 10);
-int coulumns = 4; // rand.Next(2, 10);
-int[,] matrix = new int[rows, coulumns];
-int[,] matrixSort = new int[rows, coulumns];
+int columns = 4; // rand.Next(2, 10);
+int[,] matrix = new int[rows, columns];
+int[] RowSort = new int[columns];
 
 Console.Clear();
 Console.WriteLine($"*************************************************");
-Console.WriteLine($"Дан массив на {rows} строк (-и) и {coulumns} столбца (-ов)");
+Console.WriteLine($"Дан массив на {rows} строк (-и) и {columns} столбца (-ов)");
 Console.WriteLine($"*************************************************");
 
 FillArray(matrix);
@@ -19,8 +19,8 @@ PrintArray(matrix);
 Console.WriteLine($"*************************************************");
 
 Console.WriteLine("Отсортируем каждую строку по убыванию:");
-SortRowsMaxToMin(matrix);
-PrintArray(matrix);
+// SortRowsMaxToMin(matrix);
+// PrintArray(matrix);
 
 Console.WriteLine($"*************************************************");
 
@@ -47,28 +47,25 @@ void PrintArray (int[,] currentArray)
     }
 }
 
-void SortRowsMaxToMin (int[,] currentArray)
+void ReplaceValuesIntoArray (int[,] currentArray, int[] tempArray, int row)
 { 
-    int maxValueIndexColumn = 0;
-    int maxValueIndexRow = 0;
-    int maxValue = currentArray[0, 0];
-    for (int i = 0; i < currentArray.GetLength(0); i++)
+    for (int j = 0; j < currentArray.GetLength(1); j++)
     {
-        maxValueIndexRow = i;
-        maxValue = currentArray[i, 0];
-        for (int j = 0; j < currentArray.GetLength(1) - 1; j++)
+        tempArray[j] = currentArray[row, j];
+    }
+}
+
+void SortRow (int[] tempArray)
+{
+    for (int i = 0; i < tempArray.Length - 1; i++)
+    {
+        int maxIndex = i;
+        for (int j = 0; j < tempArray.Length; j++)
         {
-            maxValueIndexColumn = j;
-            for (int k = j + 1; k < currentArray.GetLength(0); k++)
-            {
-                if (currentArray[i, k] > maxValue)
-                {
-                    maxValueIndexColumn = k;
-                }
-                int temp = currentArray[i, k];
-                currentArray[i, k] = currentArray[maxValueIndexRow, maxValueIndexColumn];
-                currentArray[maxValueIndexRow, maxValueIndexColumn] = temp;
-            }
+            if (tempArray[i] > tempArray[maxIndex]) maxIndex = i;
         }
+        int temp = tempArray[i];
+        tempArray[i] = tempArray[maxIndex];
+        tempArray[maxIndex] = temp;
     }
 }
