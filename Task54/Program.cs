@@ -9,6 +9,7 @@ Stopwatch measureTime = new Stopwatch();
 int rows = 10; //rand.Next(10, 20);
 int columns = 10; // rand.Next(10, 20);
 int[,] matrix = new int[rows, columns];
+int[,] matrixCopy = new int[rows, columns];
 int[] rowSort = new int[columns];
 
 Console.Clear();
@@ -17,6 +18,7 @@ Console.WriteLine($"Дан массив на {rows} строк (-и) и {columns
 Console.WriteLine($"*************************************************");
 
 FillArray(matrix);
+CopyArrays(matrix, matrixCopy);
 PrintArray(matrix);
 
 Console.WriteLine($"*************************************************");
@@ -39,8 +41,8 @@ Console.WriteLine($"*************************************************");
 Console.WriteLine("Отсортируем каждую строку по убыванию внутри одного цикла:");
 measureTime.Start();
 
-SortMatrixRow(matrix);
-PrintArray(matrix);
+SortMatrixRow(matrixCopy);
+PrintArray(matrixCopy);
 
 measureTime.Stop();
 Console.WriteLine($"Время выполнения цикла равно: {measureTime.ElapsedMilliseconds} миллисекундам");
@@ -114,6 +116,17 @@ void SortMatrixRow (int[,] currentArray)
             int temp = currentArray[i, j];
             currentArray[i, j] = currentArray[i, maxIndex];
             currentArray[i, maxIndex] = temp; 
+        }
+    }
+}
+
+void CopyArrays(int[,] currentArray, int[,] copyArray)
+{
+    for (int i = 0; i < currentArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < currentArray.GetLength(1); j++)
+        {
+            copyArray[i, j] = currentArray[i, j];
         }
     }
 }
