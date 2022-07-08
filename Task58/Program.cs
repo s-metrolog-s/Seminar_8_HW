@@ -10,14 +10,14 @@ Console.WriteLine($"Дан массив на {rows} и {columns} стролбц�
 Console.WriteLine("*************************************************");
 
 Console.WriteLine("Заполняем массив змейкой");
-//FillArraySnake(matrix);
-//PrintArray(matrix);
+FillArraySnake(matrix);
+PrintArray(matrix);
 
 Console.WriteLine("*************************************************");
 
 Console.WriteLine("Заполняем массив по спирали");
-FillArraySpiral(matrix);
-PrintArray(matrix);
+//FillArraySpiral(matrix, rows, columns);
+//PrintArray(matrix);
 
 void FillArraySnake (int[,] currentArray)
 {
@@ -41,25 +41,22 @@ void FillArraySnake (int[,] currentArray)
     }
 }
 
-
-void FillArraySpiral (int[,] currentArray)
+/*
+void FillArraySpiral (int[,] currentArray, int rows, int columns)
 {
     int count = 1;
-    int row = 0;
-    int column = 1;
+    int circle = 1;
+    int itteration = 0;
     while (count < currentArray.GetLength(0) * currentArray.GetLength(1))
     {
         int direction = 1;
-        int circle = 0;
         if (direction == 1)
         {
-            for (int j = circle; j < currentArray.GetLength(1) - row + circle; j++)
+            for (int j = circle - 1; j < columns - circle + 1; j++)
             {
-                currentArray[circle, j] = count;
-                count++;
+                currentArray[circle - 1, j] = count++;
             }
             direction = 2;
-            row++;
         }
 
         if (direction == 2)
@@ -91,34 +88,13 @@ void FillArraySpiral (int[,] currentArray)
                 currentArray[i, 0] = count;
                 count++;
             }
-            direction = 5;
+            direction = 1;
             column++;
         }
         
         circle++;
         
-        if (direction == 5)
-        {
-            for (int j = circle; j < currentArray.GetLength(1) - row + circle; j++)
-            {
-                currentArray[circle, j] = count;
-                count++;
-            }
-            direction = 6;
-            row++;
-        }
-
-        if (direction == 6)
-        {
-            for (int i = circle + 1; i < currentArray.GetLength(0) - circle; i++)
-            {
-                currentArray[i, currentArray.GetLength(1) - column + circle] = count;
-                count++;
-            }
-            direction = 7;
-            column++;
-        }
-        
+        /*
         if (direction == 7)
         {
             for (int j = currentArray.GetLength(1) - row; j >= circle; j--)
@@ -129,11 +105,11 @@ void FillArraySpiral (int[,] currentArray)
             direction = 1;
             row++;
         }
-
+        
         break;
     }
 }
-
+*/
 
 void PrintArray (int[,] currentArray)
 {
